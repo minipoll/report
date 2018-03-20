@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>재고현황</title>
+</head>
+<style type="text/css">
+body{margin: 0; padding: 0; font-size: 12px; color: #000; font-family: '돋음','굴림'; }
+	div{display: block;}
+	table{table-layout: fixed; word-break:break-all; font-size: 11px;}
+	.boder_gray{border: 1px solid #000;}
+	.num{text-align: right; padding-right: 2px;}
+	.mid{text-align: center;}
+	.span_top{vertical-align: top;padding-top:8px; }
+	
+	.main_box{width: 1240px; margin: 0 auto; position: relative; overflow: hidden;}
+	.main_box h2.ttl_page{width: 380px; margin: 60px auto 25px; text-align: center; padding: 5px 0;}
+
+	.main_box .info_text{width: 1240px; overflow: hidden;}
+	.main_box .info_text .info{text-align: left; padding-left: 5px;}
+	.main_box .info_text .info span{display: inline-block; width: 60px; white-space: pre-wrap;}	
+
+    .main_box .main_data,
+    .main_box .main_sum,
+    .main_box .main_data td,
+    .main_box .main_data th,
+	.main_box .main_sum td{border:1px solid #000; border-collapse: collapse;}
+
+    .main_box .main_data th{background-color: #aaa;}
+    .main_box .main_sum{background-color:#aaa;}
+    .main_box .main_data tbody tr.mid_sum{background-color: #e0e0e0;}
+    br {line-height: 19.9px;}
+}
+</style>
+<body>
+	<div class="main_box">
+		<!-- ttl -->
+		<h2 class="ttl_page boder_gray">재  고  현  황</h2>
+
+		<!-- info_text -->
+		<div class="info_text">
+			<p class="info"><span>상      호 :</span>{{:provider.custNm}}</p>
+			<p class="info"><span>조회기간 :</span>{{:provider.fromDt}} ~ {{:provider.toDt}}</p>
+		</div>
+		<table class="main_data">
+			<colgroup>
+				<col width="200px" />
+				<col width="85px" />
+				<col width="85px" />
+				<col width="85px" />
+				<col width="85px" />
+				<col width="85px" />
+				<col width="190px" />
+				<col width="85px" />
+				<col width="85px" />
+				<col width="85px" />
+				<col width="85px" />
+				<col width="85px" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th rowspan="2">수탁품명</th>
+					<th>규격</th>
+					<th colspan="4">재고수량 / 재고중량</th>
+					<th rowspan="2">B/L No.</th>
+					<th>입고일자</th>
+					<th>통관여부</th>
+					<th>잔여일수</th>
+					<th>원산지</th>
+					<th>브랜드</th>
+				</tr>
+				<tr>
+					<th>단위</th>
+					<th>전일</th>
+					<th>입고</th>
+					<th>출고</th>					
+					<th>재고</th>
+					<th>Lot No.</th>
+					<th>통관일자</th>
+					<th>유효기간</th>
+					<th>가공공장</th>
+					<th>콘테이너 No.</th>
+				</tr>
+			</thead>  
+			<tbody>
+			    {{for ~getCategories(#data)}}
+			    {{for items}}
+				<tr>
+					<td class="span_top" rowspan="2">{{:GOODN}}</td>
+					<td>{{:SIZE}}</td>
+					<td class="num">{{:~numberformat(BDAY_Q)}}</td>
+					<td class="num">{{:~numberformat(TDAY_IN_Q)}}</td>
+					<td class="num">{{:~numberformat(TDAY_OUT_Q)}}</td>
+					<td class="num">{{:~numberformat(INV_Q)}}</td>
+					<td class="span_top" rowspan="2">{{:BLNO}}</td>
+					<td>{{:LOTNO1}}</td>
+					<td>{{:ENTNM}}</td>
+					<td>{{:EXP_DIFF}}</td>
+					<td>{{:ORG}}</td>
+					<td>{{:BRAND}}</td>
+				</tr>
+				<tr>
+					<td>{{:UNIT}}</td>
+					<td class="num">{{:~numberformat(BDAY_W,2)}}</td>
+					<td class="num">{{:~numberformat(TDAY_IN_W,2)}}</td>
+					<td class="num">{{:~numberformat(TDAY_OUT_W,2)}}</td>					
+					<td class="num">{{:~numberformat(INV_W,2)}}</td>
+					<td>{{:LOTNO2}}</td>
+					<td>{{:ENTDATE}}</td>
+					<td>{{:EXPDATE_F}}</td>
+					<td>{{:ESTNO}}</td>
+					<td>{{:CTNO}}</td>
+				</tr>
+				{{/for}}
+				<tr class="mid_sum">
+					<td rowspan="2" colspan="2" class="mid span_top">소       계</td>
+					<td class="num">{{:~numberformat(BDAY_Q)}}</td>
+					<td class="num">{{:~numberformat(TDAY_IN_Q)}}</td>
+					<td class="num">{{:~numberformat(TDAY_OUT_Q)}}</td>
+					<td class="num">{{:~numberformat(INV_Q)}}</td>
+					<td colspan="6" rowspan="2">&nbsp;</td>
+				</tr>
+				<tr class="mid_sum">
+					<td class="num">{{:~numberformat(BDAY_W,2)}}</td>
+					<td class="num">{{:~numberformat(TDAY_IN_W,2)}}</td>
+					<td class="num">{{:~numberformat(TDAY_OUT_W,2)}}</td>
+					<td class="num">{{:~numberformat(INV_W,2)}}</td>
+				</tr>
+				{{/for}}
+				<tr class="main_sum">
+    				<td rowspan="2" colspan="2" class="mid span_top">합계</td>
+    				<td class="num">{{:~total(items,'BDAY_Q')}}</td>
+    				<td class="num">{{:~total(items,'TDAY_IN_Q')}}</td>
+    				<td class="num">{{:~total(items,'TDAY_OUT_Q')}}</td>
+    				<td class="num">{{:~total(items,'INV_Q')}}</td>
+    				<td colspan="6" rowspan="2">&nbsp;</td>
+    			</tr>
+    			<tr class="main_sum">
+    				<td class="num">{{:~total(items,'BDAY_W',2)}}</td> 
+    				<td class="num">{{:~total(items,'TDAY_IN_W',2)}}</td>
+    				<td class="num">{{:~total(items,'TDAY_OUT_W',2)}}</td>
+    				<td class="num">{{:~total(items,'INV_W',2)}}</td>
+    			</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

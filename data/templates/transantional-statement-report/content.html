@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>거래명세서</title>
+	<style type="text/css">
+	body{margin: 0; padding: 0; font-size: 13px; color: #000; font-family: '돋음','굴림'; }
+	div{display: block;}
+	table{table-layout: fixed; word-break:break-all; font-size: 12px;}
+	.boder_gray{border: 1px solid #000;}
+	.main_box{width: 718px; margin: 0 auto; position: relative; overflow: hidden;}
+			.main_box .main_table,
+			.main_box .main_data,
+			.main_box .main_sum{background-color:#fff; border-collapse: collapse;}
+			.main_box .main_table td{border:1px solid #000; padding: 6px 0; white-space: pre-wrap;}
+			.main_box .main_table td.center{text-align: center;}
+			.main_box .main_table td.main_ttl{}
+			.main_box .main_table td.main_ttl p.ttl{font-size: 25px;text-align: center; margin-top: 0; line-height: 0; margin-bottom: 48px;}
+			.main_box .main_table td.main_ttl span.send_ttl{border-bottom: 1px solid #000; width: 250px; text-align: center; padding-bottom: 10px; margin-right: 5px; margin-left: 20px; float: left; }	
+			.main_box .main_table td.main_ttl span.send_name{padding-bottom: 10px; float: left; }
+			.main_box .main_table td.main_ttl span.date{float: left; margin-left: 10px; text-align: left; padding-top: 10px;clear: both;}
+
+			.main_box .mt5{margin-top: 5px;}
+			.main_box .main_data th{background-color: #aaa; border:1px solid #000; padding: 1px 0px; white-space: pre-wrap; font-weight: normal; font-size: 11px;}
+			.main_box .main_data td,
+			.main_box .main_sum td{border-bottom:1px solid #000; border-left:1px solid #000; border-top: 1px solid #000; padding: 2px 0px; white-space: pre-wrap; font-size: 11px; text-align: center;}
+			.main_box .main_data td:last-child,			
+			.main_box .main_sum td:last-child{border-right:1px solid #000 ;}			
+			.main_box .main_sum tr:first-child,
+			/*.main_box .main_data tr:nth-child(odd){background-color: #ccc;}*/
+			.main_box .main_sum tr:last-child{background-color:#aaa;}
+			.main_box .main_data tbody td{border-bottom:none;border-top:none;}
+			.main_box .main_data tbody tr.titl{background-color: #c7c7c7;}
+			.main_box .main_data tbody tr.mid_sum{background-color: #e0e0e0;border-top:1px solid #000;border-bottom:1px solid #000;}
+			
+			.main_box .main_data td.num,
+			.main_box .main_sum td.num{text-align: right; padding-right: 2px;}
+			.main_box .main_data td.noline{border-left:none;}	
+            .main_box .main_data td.dotline{border-left: 1px dotted #000;}
+			.main_box .main_data span.date{display: inline-block; border-right: dotted 1px #333;}
+
+	.main_box .main_info{ position: relative; }
+	.main_box .main_info ul{ padding: 0; font-size: 11px;}	
+	.main_box .main_info li{float: left; overflow: hidden; width: 200px; padding-bottom: 8px; white-space: pre-wrap;}
+	.main_box .main_info li:last-child{width: 300px;}	
+		.main_box .main_info li span{display: inline-block;}
+		.main_box .main_info li span.ttl_name{text-align: left; width: 50px;}
+		.main_box .main_info li span.ttl_num{text-align: right; width: 105px;}
+		.main_box .main_info p.info{ float: left; font-size: 11px; clear: both;}
+		.main_box .main_info div.account{position: absolute; width: 290px; right: 30px; top: 10px; font-size: 15px; font-weight: bold;}
+		.main_box .main_info div.account p.i_accout{ width: 200px; float: left; margin-bottom: -5px;}
+		.main_box .main_info div.account p.i_bank{ width: 80px; float: left; margin-bottom: -5px;}
+
+
+	</style>
+</head>
+<body>
+	<div class="main_box">
+		<!-- main_ttl -->
+		<table class="main_table">
+			<colgroup>
+				<col width="330px"/>
+				<col width="30px"/>
+				<col width="60px"/>
+				<col width="220px"/>
+				<col width="70px"/>
+			</colgroup>
+			<tbody>
+				<tr>
+					<td rowspan="6" class="main_ttl">
+						<p class="ttl">거   래   명   세   서</p>
+						<span class="send_ttl">{{:provider.CUSTNAME}}</span><span class="send_name">귀하</span>
+						<span class="date">{{:provider.DEALDATE}}</span>
+					</td>
+					<td rowspan="6" class="center">공<br/><br/>급<br/><br/>자</td>
+					<td class="center">사 업 자<br/>등록번호</td>
+					<td colspan="2">{{:provider.CRNO}}</td>				
+				</tr>
+				<tr>
+					<td class="center">상     호</td>
+					<td colspan="2">{{:provider.CO}}</td>					
+				</tr>
+				<tr>
+					<td class="center">성     명</td>
+					<td>{{:provider.CHIEF}}</td>
+					<td class="center">직인생략</td>
+				</tr>	
+				<tr>
+					<td class="center">사 업 장<br/>주     소</td>
+					<td colspan="2">{{:provider.ADDR}}</td>
+				</tr>
+				<tr>
+					<td class="center">업     태</td>
+					<td colspan="2">{{:provider.UT}}</td>
+				</tr>	
+				<tr>
+					<td class="center">종     목</td>
+					<td colspan="2">{{:provider.JM}}</td>
+				</tr>			
+			</tbody>
+		</table>
+
+		<!-- data -->
+
+		<!-- //loop -->
+		<!-- table_head -->
+		<table class="main_data mt5">
+			<colgroup>
+				<col width="20px"/>
+				<col width="20px"/>
+				<col width="90px"/>
+				<col width="90px"/>
+				<col span="5" width="34px"/>
+				<col span="4" width="80px"/>
+			</colgroup>
+			<thead>
+			<tr>
+				<th colspan="2">월일</th>
+				<th colspan="2">적 요 사 항</th>
+				<th>입고<br/>수량</th>
+				<th>출고<br/>수량</th>
+				<th>재고<br/>수량</th>
+				<th>계산<br/>수량</th>
+				<th>일수</th>
+				<th>보  관  료</th>
+				<th>하  역  료</th>
+				<th>동  결  료</th>
+				<th>작업료 외</th>
+			</tr>
+			</thead>
+
+			<tbody>
+			{{for ~getCategories(#data)}}
+			<tr class="titl">
+				<td></td>
+				<td class="noline"></td>
+				<td colspan="2">{{:GOODN}}</td>
+				<td class="num"></td>
+				<td class="num"></td>
+				<td class="num"></td>
+				<td class="num"></td>
+				<td>단가</td>
+				<td class="num">{{:~numberformat(UNIT_PRICE,2)}}</td>
+				<td class="num">{{:~numberformat(TOTE_PRICE,2)}}</td>
+				<td class="num">{{:~numberformat(FREEZE_PRICE,2)}}</td>
+				<td class="num">{{:~numberformat(WORK_PRICE,2)}}</td>
+			</tr>
+			 {{for items}}
+			<tr>
+				<td>{{:MONTH}}</td>
+				<td class="dotline">{{:DAY}}</td>
+				<td>{{:GIST1}}</td>
+				<td class="noline">{{:GIST2}}</td>
+				<td class="num">{{:~numberformat(INQ)}}</td>
+				<td class="num">{{:~numberformat(OTQ)}}</td>
+				<td class="num">{{:~numberformat(IVQ)}}</td>
+				<td class="num">{{:~numberformat(CALCQ)}}</td>
+				<td class="num">{{:~numberformat(TERM)}}</td>
+				<td class="num">{{:~numberformat(RFAMT)}}</td>
+				<td class="num">{{:~numberformat(LDAMT)}}</td>
+				<td class="num">{{:~numberformat(FZAMT)}}</td>
+				<td class="num">{{:~numberformat(WKAMT)}}</td>
+			</tr>
+			{{/for}}
+			<tr class="mid_sum">
+				<td colspan="4">소        계</td>
+				<td class="num">{{:~numberformat(INQ)}}</td>
+				<td class="num">{{:~numberformat(OTQ)}}</td>
+				<td class="num"></td>
+				<td class="num"></td>
+				<td class="num"></td>
+				<td class="num">{{:~numberformat(RFAMT)}}</td>
+				<td class="num">{{:~numberformat(LDAMT)}}</td>
+				<td class="num">{{:~numberformat(FZAMT)}}</td>
+				<td class="num">{{:~numberformat(WKAMT)}}</td>
+			</tr>
+			{{/for}}
+			</tbody>
+		</table>
+		<!-- loop// -->
+
+        <!-- table_foot -->
+		<table class="main_sum">
+			<colgroup>
+				<col width="390px"/>
+				<col span="4" width="80px"/>
+			</colgroup>
+			<tfoot>
+			<tr>
+				<td >합       계</td>
+				<td class="num">{{:~total(items,'RFAMT')}}</td>
+				<td class="num">{{:~total(items,'LDAMT')}}</td>
+				<td class="num">{{:~total(items,'FZAMT')}}</td>
+				<td class="num">{{:~total(items,'WKAMT')}}</td>
+			</tr>
+			</tfoot>
+		</table>
+		
+		<!-- info -->
+		<div class="main_info mt5">
+			<ul>
+				<li><span class="ttl_name">공 급 가 :</span> <span class="ttl_num">{{:~salePrice(items)}}</span></li>
+				<li><span>현재미수 :</span>  <span class="ttl_num">{{:~currentMisu(#data)}}</span></li>
+				<li>아래의 계좌로 송금하여 주시면 감사하겠습니다.</li>
+			</ul>
+			<ul>
+				<li><span class="ttl_name">부 가 세 :</span> <span class="ttl_num">{{:~salePrice(items,0.1)}}</span></li>
+				<li><span>당월매출 :</span>  <span class="ttl_num">{{:~salePrice(items,1.1)}}</span></li>
+				<li></li>
+			</ul>
+			<ul>
+				<li><span class="ttl_name">합     계 :</span> <span class="ttl_num">{{:~salePrice(items,1.1)}}</span></li>
+				<li><span>미수합계 :</span>  <span class="ttl_num">{{:~numberformat(provider.MISU_TOTAL)}}</span></li>
+				<li></li>
+			</ul>
+			<p class="info">* 입고가 있을떄 보관료 = (입고량 x 보관단가) + (계산수량 x 일수 x 보관단가) </p>
+			<div class="account">
+				<p class="i_bank">송금은행 : </p><p class="i_accout">{{:provider.BANK_NAME}}</p> 
+				<p class="i_bank"> </p><p class="i_accout">{{:provider.BANK_ACC}}</p> 
+			</div>
+		</div>	
+
+
+
+	</div>
+
+</body>
+</html>

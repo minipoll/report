@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>수탁품 계근 명세서(출고)</title> 
+</head>
+<style type="text/css">
+	body{margin: 0; padding: 0; font-size: 12px; color: #000; font-family: '돋음','굴림'; }
+	div{display: block;}
+	table{table-layout: fixed; word-break:break-all; font-size: 12px;}
+	.boder_gray{border: 1px solid #000;}
+	.mt60{margin-top: 60px;}
+	.mt5{margin-top: 5px;}
+	.main_box{width: 718px; margin: 0 auto; position: relative; overflow: hidden;}
+	.main_box h2.ttl_page{width: 380px; margin: 60px auto 25px; text-align: center; padding: 5px 0;}
+
+	.main_box .main_table,
+	.main_box .main_data,
+	.main_box .main_info{background-color:#fff; border-collapse: collapse;}
+	.main_box .main_table td,
+	.main_box .main_data th	{border:1px solid #000; padding: 5px 3px; white-space: pre-wrap;}
+	.main_box .main_table td.ttl_color{background-color: #ccc; text-align: center;}
+	.main_box .main_table td.center{text-align: center;}
+    
+    
+	.main_box .main_data th{font-weight: normal; background-color: #aaa;}
+	.main_box .main_data td{padding: 5px 3px; white-space: pre-wrap; border-bottom: 1px solid #000;}
+	.main_box .main_data td:first-child{border-left: 1px solid #000;}
+	
+	.main_box .main_data td:nth-child(3n+2){text-align: right; border-right: 1px dotted #000;}
+	.main_box .main_data td:nth-child(3n){text-align: right; border-right: 1px solid #000;}
+    .main_box .main_data tr{border-bottom: 1px solid #000;}
+
+    .main_box .main_data td.over{background-color: red;color:white;}
+
+	.main_box .main_info td{border-bottom:1px solid #000; border-left:1px solid #000; border-right:1px solid #000; padding: 5px 3px 5px 3px; white-space: pre-wrap;}
+	.main_box .info_text{clear: both; width: 700px; overflow: hidden;}
+	.main_box .info_text .info{float: left; width: 350px;}
+	.main_box .info_text .s_name{float: left;}
+	.main_box .info_text .s_name span{}	
+	.main_box .info_text .fax{float: right;}
+
+
+
+</style>
+<body>
+	<div class="main_box">
+		<!-- ttl -->
+		<h2 class="ttl_page boder_gray">수탁품 계근 명세서 (출고)</h2>
+
+		<!-- main_ttl -->
+		<table class="main_table">
+			<colgroup>
+				<col width="65px" />
+				<col width="135px" />
+				<col width="65px" />
+				<col width="100px" />
+				<col width="65px" />
+				<col width="105px" />
+				<col width="65px" />
+				<col width="100" />
+			</colgroup>
+			<tr>
+				<td class="ttl_color">거래처명</td>
+				<td colspan="3">{{:provider.CUST_NM}}</td>
+				<td class="ttl_color">전표번호</td>
+				<td colspan="3">{{:provider.KEYG}}</td>
+			</tr>
+			<tr>
+				<td class="ttl_color">배 송 지</td>
+				<td>{{:provider.SEND}}</td>
+				<td class="ttl_color">원 산 지</td>
+				<td>{{:provider.ORG}}</td>
+				<td class="ttl_color">제 품 명</td>
+				<td colspan="3">{{:provider.GOODN}}</td>
+			</tr>
+			<tr>
+				<td class="ttl_color">B/L No</td>
+				<td>{{:provider.BLNO}}</td>
+				<td class="ttl_color">C/T No</td>
+				<td>{{:provider.CTNO}}</td>
+				<td class="ttl_color">EST No</td>
+				<td>{{:provider.ESTNO}}</td>
+				<td class="ttl_color">브랜드</td>
+				<td>{{:provider.BRAND}}</td>
+			</tr>
+			<tr>
+				<td class="ttl_color">총 수 량</td> 
+				<td colspan="3" class="center">{{:~numberformat(provider.IO_Q)}} (단위 : {{:provider.UNIT}})</td>
+				<td class="ttl_color">총 중 량</td>
+				<td colspan="3" class="center">{{:~numberformat(provider.IO_W,2)}} Kg</td>
+			</tr>
+		</table>
+		
+		<!-- data -->
+		<!-- table_head -->
+		<table class="main_data mt5">
+			<colgroup>
+				<col width="175px"/>
+				<col width="175px"/>
+				<col width="175px"/>
+				<col width="175px"/>
+			</colgroup>
+			<thead>
+			<tr>
+				<th>중   량</th>
+				<th>중   량</th>
+				<th>중   량</th>
+				<th>중   량</th>
+			</tr>
+			</thead>
+		</table>
+		<!-- table_body -->
+		<table class="main_data">
+			<colgroup>
+			    <col width="20px"/>
+				<col width="25px"/>
+				<col width="130px"/>
+				<col width="20px"/>
+				<col width="25px"/>
+				<col width="130px"/>
+				<col width="20px"/>
+				<col width="25px"/>
+				<col width="130px"/>
+				<col width="20px"/>
+				<col width="25px"/>
+				<col width="130px"/>
+			</colgroup>
+			<tbody>
+			    {{for ~getCategories(#data)}}
+				<tr>
+				    <td>{{:SCAN_YN1}}</td>
+					<td class="{{:CLASS1}}">{{:SEQNO1}}</td>
+					<td>{{:~numberformat(WEIGHT1,2)}}</td>
+					<td>{{:SCAN_YN2}}</td>
+					<td class="{{:CLASS2}}">{{:SEQNO2}}</td>
+					<td>{{:~numberformat(WEIGHT2,2)}}</td>
+					<td>{{:SCAN_YN3}}</td>
+					<td class="{{:CLASS3}}">{{:SEQNO3}}</td>
+					<td>{{:~numberformat(WEIGHT3,2)}}</td>
+					<td>{{:SCAN_YN4}}</td>
+					<td class="{{:CLASS4}}">{{:SEQNO4}}</td>
+					<td>{{:~numberformat(WEIGHT4,2)}}</td>
+				</tr>
+			    {{/for}}
+			</tbody>
+		</table>
+		<!-- table_foot -->
+		<table class="main_info">
+			<colgroup>
+				<col width="700px"/>
+			</colgroup>
+			<tfoot>
+				<tr>
+					<td> 
+					[비  고] 중량평균 :   <span>{{:~getAverage(items)}} kg</span><br>
+					{{:~getOverComment(items)}}
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+
+		<!-- info_text -->
+		<div class="info_text">
+			<p class="info">* 이 계근명세서는 바코드에 의해 산출된 중량입니다. </p>
+			<p class="s_name">계근자 : <span>{{:provider.EMPLOYEE}}</span></p>
+			<p class="fax">팩스 : {{:provider.FAX}}</p>
+		</div>
+	</div>
+</body>
+</html>

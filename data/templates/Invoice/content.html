@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>입출내역</title>
+</head>
+<style type="text/css">
+body{margin: 0; padding: 0; font-size: 12px; color: #000; font-family: '돋음','굴림'; }
+	div{display: block;}
+	table{table-layout: fixed; word-break:break-all; font-size: 11px;}
+	.boder_gray{border: 1px solid #000;}
+	.num{text-align: right; padding-right: 2px;}
+	.mid{text-align: center;}
+	.span_top{vertical-align: top;padding-top:8px; }
+	.main_box{width: 1160px; margin: 0 auto; position: relative; overflow: hidden;}
+	.main_box h2.ttl_page{width: 380px; margin: 60px auto 25px; text-align: center; padding: 5px 0;}
+
+	.main_box .info_text{width: 1160px; overflow: hidden;}
+	.main_box .info_text .info{text-align: left; padding-left: 5px;}
+	.main_box .info_text .info span{display: inline-block; width: 60px; white-space: pre-wrap;}	
+
+    .main_box .main_data,
+    .main_box .main_sum,
+    .main_box .main_data td,
+    .main_box .main_data th,
+	.main_box .main_sum td{border:1px solid #000; border-collapse: collapse;}
+
+    .main_box .main_data th{background-color: #aaa;}
+    .main_box .main_sum{background-color:#aaa;}
+</style>
+<body>
+	<div class="main_box">
+		<!-- ttl -->
+		<h2 class="ttl_page boder_gray">입 출 내 역</h2>
+
+		<!-- info_text -->
+		<div class="info_text">
+			<p class="info"><span>상      호 :</span>{{:provider.custNm}}</p>
+			<p class="info"><span>조회기간 :</span>{{:provider.fromDt}} ~ {{:provider.toDt}}</p>
+		</div>
+
+		<table class="main_data">
+			<colgroup>
+				<col width="40px" />
+				<col width="200px" />
+				<col width="80px" />
+				<col width="80px" />
+				<col width="80px" />
+				<col width="80px" />
+				<col width="120px" />
+				<col width="80px" />
+				<col width="80px" />
+				<col width="80px" />
+				<col width="80px" />
+				<col width="80px" />
+				<col width="80px" />
+				<col width="80px" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th rowspan="2">계근</th>
+					<th rowspan="2">수탁품명</th>
+					<th>거래일자</th>
+					<th>규격</th>
+					<th>수량</th>
+					<th>입고일자</th>
+					<th rowspan="2">B/L No.</th>
+					<th rowspan="2">Lot No.</th>
+					<th colspan="2">발송지</th>
+					<th>원산지</th>
+					<th colspan="2">이체위탁자</th>
+				</tr>
+				<tr>
+					<th>단위</th>
+					<th>구분</th>
+					<th>중량</th>
+					<th>계근중량</th>					
+					<th>가공일자</th>
+					<th>유효일자</th>
+					<th>브랜드</th>
+					<th>가공공장</th>
+					<th>콘테이너 No.</th>
+				</tr>
+			</thead>
+			<tbody>
+			    {{for items}}
+				<tr>
+					<td class="span_top" rowspan="2">&nbsp;</td>
+					<td class="span_top" rowspan="2">{{:GOODN}}</td>
+					<td class="mid">{{:IODT}}</td>
+					<td>{{:SIZE}}</td>
+					<td class="num">{{:~numberformat(IO_Q)}}</td>
+					<td class="mid">{{:LOTNO1}}</td>
+					<td class="span_top" rowspan="2">{{:BLNO}}</td>
+					<td class="span_top" rowspan="2">{{:LOTNO2}}</td>
+					<td colspan="2">{{:SEND}}</td>
+					<td>{{:ORG}}</td>
+					<td class="mid" colspan="2">{{:CUST_S}}</td>
+				</tr>
+				<tr>
+					<td>{{:UNIT}}</td>
+					<td>{{:GUBN_M}}</td>
+					<td class="num">{{:~numberformat(IO_W,2)}}</td>
+					<td class="num">{{:~numberformat(WT_Q,2)}}</td>
+					<td class="mid">{{:PRODATE_F}}</td>
+					<td class="mid">{{:EXPDATE_F}}</td>
+					<td>{{:BRAND}}</td>
+					<td>{{:ESTNO}}</td>
+					<td>{{:CTNO}}</td>
+				</tr> 
+				{{/for}}
+				<tr class="main_sum">
+    				<td class="mid span_top" colspan="4" rowspan="2">합 계</td>
+    				<td class="num">{{:~total(items,'IO_Q')}}</td>
+    				<td class="num span_top" rowspan="2">{{:~total(items,'WT_Q',2)}}</td>
+    				<td colspan="7 span_top" rowspan="2">&nbsp;</td>
+    			</tr>
+    			<tr class="main_sum">
+    				<td class="num">{{:~total(items,'IO_W',2)}}</td>
+    			</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+
+</body>
+</html>
